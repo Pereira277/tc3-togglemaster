@@ -1,0 +1,29 @@
+output "cluster_name" {
+  description = "Nome do cluster EKS"
+  value       = aws_eks_cluster.main.name
+}
+
+output "cluster_endpoint" {
+  description = "Endpoint do cluster EKS"
+  value       = aws_eks_cluster.main.endpoint
+}
+
+output "auth_db_endpoint" {
+  description = "Endpoint do RDS do auth-service"
+  value       = aws_db_instance.auth.address
+}
+
+output "auth_db_port" {
+  description = "Porta do RDS do auth-service"
+  value       = aws_db_instance.auth.port
+}
+
+output "auth_db_name" {
+  description = "Nome do banco do auth-service"
+  value       = aws_db_instance.auth.db_name
+}
+
+output "vpc_id" {
+  description = "ID da VPC"
+  value       = aws_vpc.main.id
+}
