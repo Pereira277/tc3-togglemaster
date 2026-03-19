@@ -195,11 +195,11 @@ resource "aws_security_group" "rds_auth_sg" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description     = "PostgreSQL a partir do cluster"
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.eks_cluster_sg.id]
+    description = "PostgreSQL a partir da VPC"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
   }
 
   tags = merge(local.common_tags, {
