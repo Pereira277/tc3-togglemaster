@@ -1,0 +1,7 @@
+vpc_name              = "lucas-fase3-vpc"
+cluster_name          = "lucas-fase3-eks"
+eks_cluster_role_name = "ROLE_DO_CLUSTER"
+eks_node_role_name    = "ROLE_DO_NODEGROUP"
+
+auth_db_username = "auth_user"
+auth_db_password = "CHANGE_ME"

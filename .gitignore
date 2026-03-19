@@ -14,3 +14,5 @@ secrets.yaml
 .DS_Store
 .vscode/
 .idea/
+
+infra/terraform/terraform.tfvars

@@ -1,0 +1,1 @@
+bucket_name = "lucas-fase3-tfstate-001"
