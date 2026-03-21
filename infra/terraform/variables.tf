@@ -112,3 +112,26 @@ variable "auth_db_instance_class" {
   type        = string
   default     = "db.t3.micro"
 }
+
+variable "flag_db_name" {
+  description = "Nome do banco do flag-service"
+  type        = string
+  default     = "flags_db"
+}
+
+variable "flag_db_username" {
+  description = "Usuário do banco do flag-service"
+  type        = string
+}
+
+variable "flag_db_password" {
+  description = "Senha do banco do flag-service"
+  type        = string
+  sensitive   = true
+}
+
+variable "flag_db_instance_class" {
+  description = "Classe da instância RDS do flag-service"
+  type        = string
+  default     = "db.t3.micro"
+}

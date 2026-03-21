@@ -27,3 +27,18 @@ output "vpc_id" {
   description = "ID da VPC"
   value       = aws_vpc.main.id
 }
+
+output "flag_db_endpoint" {
+  description = "Endpoint do RDS do flag-service"
+  value       = aws_db_instance.flag.address
+}
+
+output "flag_db_port" {
+  description = "Porta do RDS do flag-service"
+  value       = aws_db_instance.flag.port
+}
+
+output "flag_db_name" {
+  description = "Nome do banco do flag-service"
+  value       = aws_db_instance.flag.db_name
+}

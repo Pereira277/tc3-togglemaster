@@ -286,3 +286,23 @@ resource "aws_eks_node_group" "main" {
     Name = "${var.cluster_name}-ng"
   })
 }
+
+resource "aws_db_instance" "flag" {
+  identifier             = "${var.cluster_name}-flag-db"
+  engine                 = "postgres"
+  engine_version         = "17.4"
+  instance_class         = var.flag_db_instance_class
+  allocated_storage      = 20
+  db_name                = var.flag_db_name
+  username               = var.flag_db_username
+  password               = var.flag_db_password
+  db_subnet_group_name   = aws_db_subnet_group.auth.name
+  vpc_security_group_ids = [aws_security_group.rds_auth_sg.id]
+  publicly_accessible    = false
+  skip_final_snapshot    = true
+  multi_az               = false
+
+  tags = merge(local.common_tags, {
+    Name = "${var.cluster_name}-flag-db"
+  })
+}
