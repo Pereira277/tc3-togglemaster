@@ -135,3 +135,26 @@ variable "flag_db_instance_class" {
   type        = string
   default     = "db.t3.micro"
 }
+
+variable "targeting_db_name" {
+  description = "Nome do banco do targeting-service"
+  type        = string
+  default     = "targeting_db"
+}
+
+variable "targeting_db_username" {
+  description = "Usuário do banco do targeting-service"
+  type        = string
+}
+
+variable "targeting_db_password" {
+  description = "Senha do banco do targeting-service"
+  type        = string
+  sensitive   = true
+}
+
+variable "targeting_db_instance_class" {
+  description = "Classe da instância RDS do targeting-service"
+  type        = string
+  default     = "db.t3.micro"
+}

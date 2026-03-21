@@ -42,3 +42,18 @@ output "flag_db_name" {
   description = "Nome do banco do flag-service"
   value       = aws_db_instance.flag.db_name
 }
+
+output "targeting_db_endpoint" {
+  description = "Endpoint do RDS do targeting-service"
+  value       = aws_db_instance.targeting.address
+}
+
+output "targeting_db_port" {
+  description = "Porta do RDS do targeting-service"
+  value       = aws_db_instance.targeting.port
+}
+
+output "targeting_db_name" {
+  description = "Nome do banco do targeting-service"
+  value       = aws_db_instance.targeting.db_name
+}

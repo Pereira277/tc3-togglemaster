@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: targeting-db-init
+  namespace: togglemaster
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db-init
+          image: postgres:16
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: targeting-service-secret
+                  key: DATABASE_URL
+          command:
+            - /bin/sh
+            - -c
+            - |
+              cat > /tmp/init.sql <<'SQL'
+              CREATE TABLE IF NOT EXISTS targeting_rules (
+                  id SERIAL PRIMARY KEY,
+                  flag_name VARCHAR(100) UNIQUE NOT NULL,
+                  is_enabled BOOLEAN NOT NULL DEFAULT true,
+                  rules JSONB NOT NULL,
+                  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+              );
+
+              CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+              RETURNS TRIGGER AS $func$
+              BEGIN
+                NEW.updated_at = NOW();
+                RETURN NEW;
+              END;
+              $func$ LANGUAGE plpgsql;
+
+              DROP TRIGGER IF EXISTS set_timestamp ON targeting_rules;
+
+              CREATE TRIGGER set_timestamp
+              BEFORE UPDATE ON targeting_rules
+              FOR EACH ROW
+              EXECUTE PROCEDURE trigger_set_timestamp();
+              SQL
+
+              psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /tmp/init.sql
+  backoffLimit: 3
